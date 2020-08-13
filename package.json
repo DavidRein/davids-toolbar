@@ -10,16 +10,41 @@
 		"Other"
 	],
 	"activationEvents": [
-		"onCommand:davids-toolbar.helloWorld"
+		"onCommand:davids-toolbar.quickRun"
 	],
 	"main": "./out/extension.js",
 	"contributes": {
+		"configuration":[
+			{
+				"title": "David's Toolbar",
+				"properties": {
+					"quickRun.runCommand": {
+						"type": "string",
+						"default": null,
+						"description": "terminal command that executes on run"
+					}
+				}
+			}
+		],
 		"commands": [
 			{
-				"command": "davids-toolbar.helloWorld",
-				"title": "Hello World"
+				"command": "davids-toolbar.quickRun",
+				"title": "David's Toolbar: Quick Run",
+				"icon":{
+					"light": "./images/icon_quick_run.svg",
+					"dark": "./images/icon_quick_run.svg"
+				}
 			}
-		]
+		],
+		"menus": {
+			"editor/title": [
+				{
+					"command": "davids-toolbar.quickRun",
+					"when": "resourceLangId == go || resourceLangId == groovy",
+					"group": "1_run"
+				}
+			]
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
